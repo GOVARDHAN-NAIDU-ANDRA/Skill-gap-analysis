@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #3b82f6;
+            --secondary: #7c3aed;
+            --accent: #4cc9f0;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #38b000;
+            --danger: #ef233c;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--light);
+            background-color: var(--darker);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            margin: 2rem 0;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--light);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(2, 6, 23, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(2, 6, 23, 0.7);
+        }
+
+        .upload-box {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        input[type="file"] {
+            background: rgba(30, 41, 59, 0.7);
+            color: var(--light);
+            padding: 1rem;
+            border: 2px dashed var(--primary);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            margin: 1rem auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: var(--accent);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .tips {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 3rem auto;
+            max-width: 800px;
+        }
+
+        .tips ul {
+            list-style: none;
+        }
+
+        .tips ul li {
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .tips ul li:hover {
+            background: rgba(30, 41, 59, 0.5);
+            transform: translateX(5px);
+        }
+
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .video-container iframe:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        .user-info {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .logout-btn {
+            background: var(--danger);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Floating shapes */
+        .floating-shape {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary-light), transparent 70%);
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 5%;
+        }
+
+        .shape-2 {
+            bottom: 10%;
+            right: 5%;
+            background: radial-gradient(circle, var(--secondary), transparent 70%);
+            animation-delay: 2s;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .video-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+
+    <div class="container">
+        <h1>Resume Analyzer Pro</h1>
+        
+        <!-- Display username if logged in -->
+        {% if username %}
+            <div class="user-info">
+                <p>Welcome, {{ username }}!</p>
+                <a href="{{ url_for('logout') }}">
+                    <button class="logout-btn">Logout</button>
+                </a>
+            </div>
+        {% else %}
+            <div class="user-info">
+                <p>Please log in to use the Resume Analyzer.</p>
+            </div>
+        {% endif %}
+        
+        <div class="card upload-box">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="resume" required><br><br>
+                <button type="submit" class="btn">Upload Resume</button>
+            </form>
+        </div>
+
+        <div class="card tips">
+            <h2>Tips to Prepare a High-Scoring Resume</h2>
+            <ul>
+                <li><strong>Include Essential Sections</strong>: Full Name, Contact Info, Education, Skills, Work Experience, Projects, Certifications.</li>
+                <li><strong>Use Keywords from the Job Role</strong>: Match job-specific skills like Python, ML, Java, SQL.</li>
+                <li><strong>Keep it Short & Professional</strong>: 1 page for freshers, 1-2 pages for experienced candidates.</li>
+                <li><strong>Highlight Achievements, Not Just Duties</strong>: "Developed an e-commerce site using Java & Spring Boot, improving engagement by 40%."</li>
+                <li><strong>Use a Clean, ATS-Friendly Format</strong>: Avoid tables, images, fancy designs. Use fonts like Arial, Calibri.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Learn How to Make a High-Scoring Resume</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/yp693O87GmM" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/y8YH0Qbu5h4" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/J-4Fv8nq1iA" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
